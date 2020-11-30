@@ -5,6 +5,8 @@ import importlib
 import os
 import sys
 import json
+import datetime
+import time
 
 from discord.ext import commands
 from utils import permissions, default, http
@@ -49,6 +51,11 @@ class Admin(commands.Cog):
         except Exception as e:
             return await ctx.send(default.traceback_maker(e))
         await ctx.send(f"Loaded extension **{name}.py**")
+
+    @commands.command(pass_context = True)
+    @commands.check(permissions.is_owner)
+    async def reminder(self, ctx, *, mesaj):
+        await ctx.send(f'**Mesaj**: {mesaj}\n**Trimis la**: {datetime.datetime.now()}')
 
     @commands.command()
     @commands.check(permissions.is_owner)

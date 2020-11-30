@@ -19,45 +19,31 @@ class Fun_Commands(commands.Cog):
         self.config = default.config()
         self.alex_api_token = self.config["alexflipnote_api"]
 
-    @commands.command(pass_context=True)
-    async def intra(ctx):
-        channel = ctx.message.author.voice.voice_channel
-        await client.join_voice_channel(channel)
+    @commands.command()
+    async def adunare(self, ctx, a: int, b: int):
+        """ Fac si eu adunari ca nu sunt prost. """
+        await ctx.send(a+b)
 
-    @commands.command(pass_context=True)
-    async def play(ctx, url):
-        server = ctx.message.server
-        voice_client  = client.voice_client_in(server)
-        player = await voice_client.create_ytdl_player(url)
-        players[server.id] = player
-        player.start()
+    @commands.command()
+    async def scadere(self, ctx, a: int, b: int):
+        """ Fac si eu scaderi sa arat ca sunt olimpic. """
+        await ctx.send(a-b)
+
+    @commands.command()
+    async def inmultire(self, ctx, a: int, b: int):
+        """ Fac si inmultiri ba nebunule. """
+        await ctx.send(a*b)
+
+    @commands.command()
+    async def impartire(self, ctx, a: int, b: int):
+        """ Fac si impartiri ce stii tu. """
+        await ctx.send(a/b)
 
     @commands.command(aliases=['intrebare'])
     async def question(self, ctx, *, question: commands.clean_content):
         """ Pui o intrebare. """
         answer = random.choice(lists.ballresponse)
         await ctx.send(f"❓ **Intrebarea:** {question}\n✔️**Raspunsul:** {answer}")
-
-    async def randomimageapi(self, ctx, url: str, endpoint: str, token: str = None):
-        try:
-            r = await http.get(url, res_method="json", no_cache=True, headers={"Authorization": token})
-        except aiohttp.ClientConnectorError:
-            return await ctx.send("The API seems to be down...")
-        except aiohttp.ContentTypeError:
-            return await ctx.send("The API returned an error or didn't return JSON...")
-
-        await ctx.send(r[endpoint])
-
-    async def api_img_creator(self, ctx, url: str, filename: str, content: str = None, token: str = None):
-        async with ctx.channel.typing():
-            req = await http.get(url, res_method="read", headers={"Authorization": token})
-
-            if not req:
-                return await ctx.send("I couldn't create the image ;-;")
-
-            bio = BytesIO(req)
-            bio.seek(0)
-            await ctx.send(content=content, file=discord.File(bio, filename=filename))
 
     @commands.command()
     async def gay(self, ctx, *, user: discord.Member = None):
@@ -71,7 +57,7 @@ class Fun_Commands(commands.Cog):
         if num == 100:
             deci = 0
 
-        await ctx.send(f"Cat de gay este {user.name} = **{num}.{deci}% / 100%**")
+        await ctx.send(f"Cat de gay este {user.mention} = **{num}.{deci}% / 100%**")
 
     @commands.command()
     async def fuck(self, ctx, *, user: discord.Member = None):
@@ -85,7 +71,7 @@ class Fun_Commands(commands.Cog):
         if num == 100:
             deci = 0
 
-        await ctx.send(f"Sansele de a te fute cu {user.name} = sunt de **{num}.{deci}% / 100%**")
+        await ctx.send(f"Sansele de a te fute cu {user.mention} = sunt de **{num}.{deci}% / 100%**")
 
     @commands.command()
     async def hot(self, ctx, *, user: discord.Member = None):
@@ -99,7 +85,7 @@ class Fun_Commands(commands.Cog):
         if num == 100:
             deci = 0
 
-        await ctx.send(f"{user.name} este : **{num}.{deci}% fierbintee 🤤😏 **")
+        await ctx.send(f"{user.mention} este : **{num}.{deci}% fierbintee 🤤😏 **")
 
     @commands.command()
     @commands.cooldown(rate=1, per=1.5, type=commands.BucketType.user)
@@ -261,12 +247,6 @@ class Fun_Commands(commands.Cog):
         await ctx.author.send(f"🎁 **Here is your password:**\n{secrets.token_urlsafe(nbytes)}")
 
     @commands.command()
-    async def rate(self, ctx, *, thing: commands.clean_content):
-        """ Rates what you desire """
-        rate_amount = random.uniform(0.0, 100.0)
-        await ctx.send(f"I'd rate `{thing}` a **{round(rate_amount, 4)} / 100**")
-
-    @commands.command()
     async def beer(self, ctx, user: discord.Member = None, *, reason: commands.clean_content = ""):
         """ Give someone a beer! 🍻 """
         if not user or user.id == ctx.author.id:
@@ -314,6 +294,19 @@ class Fun_Commands(commands.Cog):
             return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
 
         bio = BytesIO(await http.get("https://media1.tenor.com/images/274d834b6dffaf7229ff14577ca76a84/tenor.gif?itemid=5521492", res_method="read"))
+        await ctx.send(file=discord.File(bio, filename="tenor.gif"))
+
+    @commands.command()
+    async def hug(self, ctx, user: discord.Member = None):
+        """ Imbratisare. """
+        if user is None:
+            user = ctx.author
+
+        if not permissions.can_handle(ctx, "attach_files"):
+            return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
+        
+        await ctx.send(f"{ctx.message.author.mention} l-a imbratisat pe {user.mention}")
+        bio = BytesIO(await http.get("https://media1.tenor.com/images/7e30687977c5db417e8424979c0dfa99/tenor.gif?itemid=10522729", res_method="read"))
         await ctx.send(file=discord.File(bio, filename="tenor.gif"))
 
     @commands.command()
