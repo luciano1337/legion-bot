@@ -1,6 +1,5 @@
 ballresponse = [
-  'Yes', 'No', 'Take a wild guess...', 'Very doubtful',
-  'Sure', 'Without a doubt', 'Most likely', 'Might be possible',
-  "You'll be the judge", 'no... (╯°□°）╯︵ ┻━┻', 'no... baka',
-  'senpai, pls no ;-;'
+  'Da', 'Nu', 'Ghiceste..', 'Absolut.',
+  'Desigur.', 'Fara indoiala fratimiu.', 'Cel mai probabil.', 'Posibil.', 'Yamete Kudasaiii.. ^_^', 'E prost dal in morti lui!',
+  "Nu il poti judeca."
 ]
