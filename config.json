@@ -1,0 +1,16 @@
+{
+  "token": "NzI0NTc5ODg5NTA3NzI5NDE4.XvCPmw.XPtlNRxE748_EgFe7BNn3C_ITL8",
+  "join_message": "I has joined to do stuff 🌟",
+  "owners": [
+    256513623608786956,
+    314764688653287445
+  ],
+  "prefix": [
+    "!"
+  ],
+  "activity": "In Development.....",
+  "activity_type": "playing|watching|listening|competing",
+  "status_type": "online|idle|dnd",
+  "alexflipnote_api": "nice_token_you_got_here",
+  "version": "2.0.2"
+}
