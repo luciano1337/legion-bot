@@ -32,11 +32,11 @@ class Fun_Commands(commands.Cog):
         players[server.id] = player
         player.start()
 
-    @commands.command(aliases=['8ball'])
-    async def eightball(self, ctx, *, question: commands.clean_content):
-        """ Consult 8ball to receive an answer """
+    @commands.command(aliases=['intrebare'])
+    async def question(self, ctx, *, question: commands.clean_content):
+        """ Pui o intrebare. """
         answer = random.choice(lists.ballresponse)
-        await ctx.send(f"🎱 **Question:** {question}\n**Answer:** {answer}")
+        await ctx.send(f"❓ **Intrebarea:** {question}\n✔️**Raspunsul:** {answer}")
 
     async def randomimageapi(self, ctx, url: str, endpoint: str, token: str = None):
         try:
@@ -58,6 +58,48 @@ class Fun_Commands(commands.Cog):
             bio = BytesIO(req)
             bio.seek(0)
             await ctx.send(content=content, file=discord.File(bio, filename=filename))
+
+    @commands.command()
+    async def gay(self, ctx, *, user: discord.Member = None):
+        """ Vezi cat de gay este prietenul tau. """
+        if user is None:
+            user = ctx.author
+
+        num = random.randint(0, 100)
+        deci = random.randint(0, 9)
+
+        if num == 100:
+            deci = 0
+
+        await ctx.send(f"Cat de gay este {user.name} = **{num}.{deci}% / 100%**")
+
+    @commands.command()
+    async def fuck(self, ctx, *, user: discord.Member = None):
+        """ Vezi care este sansa sa te futi si tu cu cineva ca esti virgin """
+        if user is None:
+            user = ctx.author
+
+        num = random.randint(0, 100)
+        deci = random.randint(0, 9)
+
+        if num == 100:
+            deci = 0
+
+        await ctx.send(f"Sansele de a te fute cu {user.name} = sunt de **{num}.{deci}% / 100%**")
+
+    @commands.command()
+    async def hot(self, ctx, *, user: discord.Member = None):
+        """ Vezi cat de fierbinte este, mrrr. """
+        if user is None:
+            user = ctx.author
+
+        num = random.randint(0, 100)
+        deci = random.randint(0, 9)
+
+        if num == 100:
+            deci = 0
+
+        await ctx.send(f"{user.name} este : **{num}.{deci}% fierbintee 🤤😏 **")
 
     @commands.command()
     @commands.cooldown(rate=1, per=1.5, type=commands.BucketType.user)
@@ -256,25 +298,6 @@ class Fun_Commands(commands.Cog):
             beer_offer = beer_offer + f"\n\n**Reason:** {reason}" if reason else beer_offer
             await msg.edit(content=beer_offer)
 
-    @commands.command(aliases=['howhot', 'hot'])
-    async def hotcalc(self, ctx, *, user: discord.Member = None):
-        """ Returns a random percent for how hot is a discord user """
-        user = user or ctx.author
-
-        random.seed(user.id)
-        r = random.randint(1, 100)
-        hot = r / 1.17
-
-        emoji = "💔"
-        if hot > 25:
-            emoji = "❤"
-        if hot > 50:
-            emoji = "💖"
-        if hot > 75:
-            emoji = "💞"
-
-        await ctx.send(f"**{user.name}** is **{hot:.2f}%** hot {emoji}")
-
     @commands.command(aliases=['noticemesenpai'])
     async def noticeme(self, ctx):
         """ Notice me senpai! owo """
@@ -283,6 +306,24 @@ class Fun_Commands(commands.Cog):
 
         bio = BytesIO(await http.get("https://i.alexflipnote.dev/500ce4.gif", res_method="read"))
         await ctx.send(file=discord.File(bio, filename="noticeme.gif"))
+
+    @commands.command()
+    async def nigga(self, ctx):
+        """ NIGGA NO. """
+        if not permissions.can_handle(ctx, "attach_files"):
+            return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
+
+        bio = BytesIO(await http.get("https://media1.tenor.com/images/274d834b6dffaf7229ff14577ca76a84/tenor.gif?itemid=5521492", res_method="read"))
+        await ctx.send(file=discord.File(bio, filename="tenor.gif"))
+
+    @commands.command()
+    async def ham(self, ctx):
+        """ PENTRU REBEL FOMISTU. """
+        if not permissions.can_handle(ctx, "attach_files"):
+            return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
+
+        bio = BytesIO(await http.get("https://media1.tenor.com/images/43a0e917f28b5f27369f707eea3d7cbf/tenor.gif?itemid=11375339", res_method="read"))
+        await ctx.send(file=discord.File(bio, filename="tenor.gif"))
 
     @commands.command(aliases=['slots', 'bet'])
     @commands.cooldown(rate=1, per=3.0, type=commands.BucketType.user)
