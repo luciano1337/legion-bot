@@ -329,7 +329,7 @@ class Fun_Commands(commands.Cog):
         if user.bot:
             return await ctx.send(f"Mi-ar placea sa ii dau botului o imbratisare **{ctx.author.mention}**, dar nu o sa imi raspunda :/")
 
-        kiss_offer = f"**{ctx.author.mention}**, ai primit o 🤗 de la **{user.mention}**"
+        kiss_offer = f"**{user.mention}**, ai primit o 🤗 de la **{ctx.author.mention}**"
         kiss_offer = kiss_offer + f"\n\n**Motiv:** {reason}" if reason else kiss_offer
         msg = await ctx.send(kiss_offer)
 
