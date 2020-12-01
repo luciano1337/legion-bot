@@ -282,7 +282,7 @@ class Fun_Commands(commands.Cog):
 
     @commands.command()
     async def pupic(self, ctx, user: discord.Member = None, *, reason: commands.clean_content = ""):
-        """ Dai cuiva un pupic! 😘 """
+        """ Dai cuiva un pupic uwu! 😘 """
         chosen_image = random.choice(lists.pozekiss)
         if not user or user.id == ctx.author.id:
             return await ctx.send(f"**{ctx.author.mention}**: 😘❤️")
@@ -315,6 +315,44 @@ class Fun_Commands(commands.Cog):
         except discord.Forbidden:
             # Yeah so, bot doesn't have reaction permission, drop the "offer" word
             kiss_offer = f"**{ctx.author.mention}**, ai primit un 😘 de la **{user.mention}**"
+            kiss_offer = kiss_offer + f"\n\n**Motiv:** {reason}" if reason else kiss_offer
+            await msg.edit(content=kiss_offer)
+
+    @commands.command()
+    async def hug(self, ctx, user: discord.Member = None, *, reason: commands.clean_content = ""):
+        """ Da o imbreatisare cuiva! 🤗 """
+        chosen_image = random.choice(lists.pozehug)
+        if not user or user.id == ctx.author.id:
+            return await ctx.send(f"**{ctx.author.mention}**: 🤗❤️")
+        if user.id == self.bot.user.id:
+            return await ctx.send("*vrea o imbratisare de la tine* ❤️")
+        if user.bot:
+            return await ctx.send(f"Mi-ar placea sa ii dau botului o imbratisare **{ctx.author.mention}**, dar nu o sa imi raspunda :/")
+
+        kiss_offer = f"**{ctx.author.mention}**, ai primit o 🤗 de la **{user.mention}**"
+        kiss_offer = kiss_offer + f"\n\n**Motiv:** {reason}" if reason else kiss_offer
+        msg = await ctx.send(kiss_offer)
+
+        def reaction_check(m):
+            if m.message_id == msg.id and m.user_id == user.id and str(m.emoji) == "🤗":
+                return True
+            return False
+
+        try:
+            await msg.add_reaction("🤗")
+            await self.bot.wait_for('raw_reaction_add', timeout=30.0, check=reaction_check)
+            await msg.edit(content=f"**{ctx.author.mention}** si **{user.mention}** se imbratiseaza 🥰")
+            embed = discord.Embed(color=0xff69b4, timestamp=datetime.datetime.utcnow())
+            embed.set_image(url=chosen_image)
+            embed.set_footer(text=f"Requested by: {ctx.author.name}")
+
+            await ctx.send(embed=embed)
+        except asyncio.TimeoutError:
+            await msg.delete()
+            await ctx.send(f"well, **{ctx.author.mention}** se pare ca **{user.mention}** nu vrea o imbratisare de la tine 😢")
+        except discord.Forbidden:
+            # Yeah so, bot doesn't have reaction permission, drop the "offer" word
+            kiss_offer = f"**{ctx.author.mention}**, ai primit o 🤗 de la **{user.mention}**"
             kiss_offer = kiss_offer + f"\n\n**Motiv:** {reason}" if reason else kiss_offer
             await msg.edit(content=kiss_offer)
 
@@ -370,39 +408,7 @@ class Fun_Commands(commands.Cog):
 
         bio = BytesIO(await http.get("https://i.imgur.com/9x18D5m.png", res_method="read"))
         await user.send(file=discord.File(bio, filename="gilbert.png"))
-        await ctx.send(f"✉️ L-am trimis pe Gilbert acasa la id-ul asta **{user_id}**")
-
-    @commands.command()
-    async def hug(self, ctx, user: discord.Member = None):
-        """ Imbratisare. """
-        if user is None:
-            user = ctx.author
-        chosen_image = random.choice(lists.pozehug)
-        if not permissions.can_handle(ctx, "attach_files"):
-            return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
-        
-        await ctx.send(f"{ctx.message.author.mention} l-a imbratisat pe {user.mention}")
-        embed = discord.Embed(color=0xff69b4, timestamp=datetime.datetime.utcnow())
-        embed.set_image(url=chosen_image)
-        embed.set_footer(text=f"Requested by: {ctx.author.name}")
-
-        await ctx.send(embed=embed)
-
-    @commands.command()
-    async def kiss(self, ctx, user: discord.Member = None):
-        """ Un pupic uwu. """
-        if user is None:
-            user = ctx.author
-        chosen_image = random.choice(lists.pozehug)
-        if not permissions.can_handle(ctx, "attach_files"):
-            return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
-        
-        await ctx.send(f"{ctx.message.author.mention} i-a dat un pupic lu {user.mention}")
-        embed = discord.Embed(color=0xff69b4, timestamp=datetime.datetime.utcnow())
-        embed.set_image(url=chosen_image)
-        embed.set_footer(text=f"Requested by: {ctx.author.name}")
-
-        await ctx.send(embed=embed)        
+        await ctx.send(f"✉️ L-am trimis pe Gilbert acasa la id-ul asta **{user_id}**")     
 
     @commands.command()
     async def slap(self, ctx, user: discord.Member = None):
