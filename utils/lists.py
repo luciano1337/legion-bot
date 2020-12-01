@@ -50,3 +50,9 @@ pozekiss = [
   'https://media1.tenor.com/images/ef4a0bcb6e42189dc12ee55e0d479c54/tenor.gif?itemid=12143127',
   'https://media1.tenor.com/images/f102a57842e7325873dd980327d39b39/tenor.gif?itemid=12392648'
 ]
+lick = [
+  'https://media1.tenor.com/images/2ca4ca0d787ca3af4e27cdf71bb9796f/tenor.gif?itemid=15900645'
+]
+love = [
+  'https://media1.tenor.com/images/cf20ebeadcadcd54e6778dac16357644/tenor.gif?itemid=10805514'
+]
