@@ -427,6 +427,39 @@ class Fun_Commands(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
+    async def lick(self, ctx, user: discord.Member = None):
+        """ Linge pe cineva """
+        if user is None:
+            user = ctx.author
+        chosen_image = random.choice(lists.lick)
+        if not permissions.can_handle(ctx, "attach_files"):
+            return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
+        
+        await ctx.send(f"{ctx.message.author.mention} l-a lins pe {user.mention}")
+        embed = discord.Embed(color=0xff69b4, timestamp=datetime.datetime.utcnow())
+        embed.set_image(url=chosen_image)
+        embed.set_footer(text=f"Requested by: {ctx.author.name}")
+
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    async def love(self, ctx, user: discord.Member = None):
+        """ Iubeste pe cineva"""
+        if user is None:
+            user = ctx.author
+        chosen_image = random.choice(lists.love)
+        if not permissions.can_handle(ctx, "attach_files"):
+            return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
+        
+        await ctx.send(f"{ctx.message.author.mention} il iubeste pe {user.mention} ❤️")
+        embed = discord.Embed(color=0xff69b4, timestamp=datetime.datetime.utcnow())
+        embed.set_image(url=chosen_image)
+        embed.set_footer(text=f"Requested by: {ctx.author.name}")
+
+        await ctx.send(embed=embed)
+
+
+    @commands.command()
     async def ham(self, ctx):
         """ PENTRU REBEL FOMISTU. """
         if not permissions.can_handle(ctx, "attach_files"):
