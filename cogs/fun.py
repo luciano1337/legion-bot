@@ -427,6 +427,23 @@ class Fun_Commands(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
+    @commands.has_role("grad-special")
+    async def gift(self, ctx, user: discord.Member = None):
+        """ Fute o palma. """
+        if user is None:
+            user = ctx.author
+        chosen_image = random.choice(lists.pozegift)
+        if not permissions.can_handle(ctx, "attach_files"):
+            return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
+        
+        await ctx.send(f"Ai primit un cadou ! {ctx.message.author.mention}")
+        embed = discord.Embed(color=0xff69b4, timestamp=datetime.datetime.utcnow())
+        embed.set_image(url=chosen_image)
+        embed.set_footer(text=f"Requested by: {ctx.author.name}")
+
+        await ctx.send(embed=embed)
+
+    @commands.command()
     async def lick(self, ctx, user: discord.Member = None):
         """ Linge pe cineva """
         if user is None:
@@ -448,6 +465,7 @@ class Fun_Commands(commands.Cog):
         if user is None:
             user = ctx.author
         chosen_image = random.choice(lists.love)
+
         if not permissions.can_handle(ctx, "attach_files"):
             return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
         
@@ -458,6 +476,12 @@ class Fun_Commands(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.command()
+    async def glume(self, ctx, user: discord.Member = None):
+        """ NANE GLUME """
+        if user is None:
+            user = ctx.author
+        await ctx.send(f"{user.mention} {random.choice(lists.glumemafia)}")
 
     @commands.command()
     async def ham(self, ctx):
