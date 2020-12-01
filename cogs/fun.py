@@ -6,6 +6,8 @@ import asyncio
 import youtube_dl
 import aiohttp
 import re
+import datetime
+import time
 
 from io import BytesIO
 from discord.ext import commands
@@ -42,8 +44,22 @@ class Fun_Commands(commands.Cog):
     @commands.command(aliases=['intrebare'])
     async def question(self, ctx, *, question: commands.clean_content):
         """ Pui o intrebare. """
-        answer = random.choice(lists.ballresponse)
+        answer = random.choice(lists.raspunsuri)
         await ctx.send(f"❓ **Intrebarea:** {question}\n✔️**Raspunsul:** {answer}")
+
+    @commands.command()
+    async def bulangiu(self, ctx, *, user: discord.Member = None):
+        """ Vezi cat de bulangiu este prietenul tau. """
+        if user is None:
+            user = ctx.author
+
+        num = random.randint(0, 100)
+        deci = random.randint(0, 9)
+
+        if num == 100:
+            deci = 0
+
+        await ctx.send(f"Cat de bulangiu este {user.name} = **{num}.{deci}% / 100%**")
 
     @commands.command()
     async def gay(self, ctx, *, user: discord.Member = None):
@@ -88,40 +104,53 @@ class Fun_Commands(commands.Cog):
         await ctx.send(f"{user.mention} este : **{num}.{deci}% fierbintee 🤤😏 **")
 
     @commands.command()
+    async def kill(self, ctx, *, user: discord.Member = None):
+        """ Vezi care este sansa sa mori efectiv. """
+        if user is None:
+            user = ctx.author
+
+        num = random.randint(0, 100)
+        deci = random.randint(0, 9)
+
+        if num == 100:
+            deci = 0
+
+        await ctx.send(f"{user.mention} Sansele tale de a murii sunt de **{num}.{deci}% / 100%**")
+
+
+    @commands.command()
     @commands.cooldown(rate=1, per=1.5, type=commands.BucketType.user)
     async def cat(self, ctx):
         """ Posts a random cat """
-        await self.randomimageapi(ctx, 'https://api.alexflipnote.dev/cats', 'file', token=self.alex_api_token)
+        chosen_image = random.choice(lists.pisica)
+        if not permissions.can_handle(ctx, "attach_files"):
+            return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
+        
+        embed = discord.Embed(color=0xff69b4, timestamp=datetime.datetime.utcnow())
+        embed.set_image(url=chosen_image)
+        embed.set_footer(text=f"Requested by: {ctx.author.name}")
+
+        await ctx.send(embed=embed)
 
     @commands.command()
     @commands.cooldown(rate=1, per=1.5, type=commands.BucketType.user)
     async def dog(self, ctx):
         """ Posts a random dog """
-        await self.randomimageapi(ctx, 'https://api.alexflipnote.dev/dogs', 'file', token=self.alex_api_token)
+        chosen_image = random.choice(lists.caini)
+        if not permissions.can_handle(ctx, "attach_files"):
+            return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
+        
+        embed = discord.Embed(color=0xff69b4, timestamp=datetime.datetime.utcnow())
+        embed.set_image(url=chosen_image)
+        embed.set_footer(text=f"Requested by: {ctx.author.name}")
 
-    @commands.command(aliases=["bird"])
-    @commands.cooldown(rate=1, per=1.5, type=commands.BucketType.user)
-    async def birb(self, ctx):
-        """ Posts a random birb """
-        await self.randomimageapi(ctx, 'https://api.alexflipnote.dev/birb', 'file', token=self.alex_api_token)
-
-    @commands.command()
-    @commands.cooldown(rate=1, per=1.5, type=commands.BucketType.user)
-    async def duck(self, ctx):
-        """ Posts a random duck """
-        await self.randomimageapi(ctx, 'https://random-d.uk/api/v1/random', 'url')
+        await ctx.send(embed=embed)
 
     @commands.command()
-    @commands.cooldown(rate=1, per=1.5, type=commands.BucketType.user)
-    async def coffee(self, ctx):
-        """ Posts a random coffee """
-        await self.randomimageapi(ctx, 'https://coffee.alexflipnote.dev/random.json', 'file')
-
-    @commands.command(aliases=['flip', 'coin'])
-    async def coinflip(self, ctx):
-        """ Coinflip! """
-        coinsides = ['Heads', 'Tails']
-        await ctx.send(f"**{ctx.author.name}** flipped a coin and got **{random.choice(coinsides)}**!")
+    async def coin(self, ctx):
+        """ Cap si pajura. """
+        coinsides = ['Cap', 'Pajura']
+        await ctx.send(f"**{ctx.author.name}** a aruncat cu banu si a picat **{random.choice(coinsides)}**!")
 
     @commands.command()
     async def f(self, ctx, *, text: commands.clean_content = None):
@@ -200,51 +229,24 @@ class Fun_Commands(commands.Cog):
             await ctx.send(embed=embed, content=f"{ctx.invoked_with.title()} name: **{r['name']}**")
 
     @commands.command()
-    @commands.cooldown(rate=1, per=2.0, type=commands.BucketType.user)
-    async def urban(self, ctx, *, search: commands.clean_content):
-        """ Find the 'best' definition to your words """
-        async with ctx.channel.typing():
-            try:
-                url = await http.get(f'https://api.urbandictionary.com/v0/define?term={search}', res_method="json")
-            except Exception:
-                return await ctx.send("Urban API returned invalid data... might be down atm.")
-
-            if not url:
-                return await ctx.send("I think the API broke...")
-
-            if not len(url['list']):
-                return await ctx.send("Couldn't find your search in the dictionary...")
-
-            result = sorted(url['list'], reverse=True, key=lambda g: int(g["thumbs_up"]))[0]
-
-            definition = result['definition']
-            if len(definition) >= 1000:
-                definition = definition[:1000]
-                definition = definition.rsplit(' ', 1)[0]
-                definition += '...'
-
-            await ctx.send(f"📚 Definitions for **{result['word']}**```fix\n{definition}```")
-
-    @commands.command()
-    async def reverse(self, ctx, *, text: str):
-        """ !poow ,ffuts esreveR
-        Everything you type after reverse will of course, be reversed
+    async def invers(self, ctx, *, text: str):
+        """ Scriu si invers mai nou
         """
         t_rev = text[::-1].replace("@", "@\u200B").replace("&", "&\u200B")
         await ctx.send(f"🔁 {t_rev}")
 
     @commands.command()
     async def password(self, ctx, nbytes: int = 18):
-        """ Generates a random password string for you
+        """ Iti generez o parola puternica pentru tine
 
-        This returns a random URL-safe text string, containing nbytes random bytes.
-        The text is Base64 encoded, so on average each byte results in approximately 1.3 characters.
+        Aceasta returnează un șir de text aleatoriu pentru adresele URL aleatorii, conținând nbytes aleator octeți.
+        Textul este codificat Base64, deci în medie fiecare octet are aproximativ 1,3 caractere.
         """
         if nbytes not in range(3, 1401):
-            return await ctx.send("I only accept any numbers between 3-1400")
+            return await ctx.send("Accept doar numere intre 3-1400")
         if hasattr(ctx, 'guild') and ctx.guild is not None:
-            await ctx.send(f"Sending you a private message with your random generated password **{ctx.author.name}**")
-        await ctx.author.send(f"🎁 **Here is your password:**\n{secrets.token_urlsafe(nbytes)}")
+            await ctx.send(f"Ti-am trimis mesaj in privat cu o parola random. **{ctx.author.name}**")
+        await ctx.author.send(f"🎁 **Ia ma parola sarakule:**\n{secrets.token_urlsafe(nbytes)}")
 
     @commands.command()
     async def beer(self, ctx, user: discord.Member = None, *, reason: commands.clean_content = ""):
@@ -279,13 +281,20 @@ class Fun_Commands(commands.Cog):
             await msg.edit(content=beer_offer)
 
     @commands.command(aliases=['noticemesenpai'])
-    async def noticeme(self, ctx):
+    async def noticeme(self, ctx, user: discord.Member = None):
         """ Notice me senpai! owo """
+        if user is None:
+            user = ctx.author
+        chosen_image = random.choice(lists.pozehentai)
         if not permissions.can_handle(ctx, "attach_files"):
-            return await ctx.send("I cannot send images here ;-;")
+            return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
+        
+        await ctx.send(f"{ctx.message.author.mention} NOTICE ME SENPAIIII... UWU")
+        embed = discord.Embed(color=0xff69b4, timestamp=datetime.datetime.utcnow())
+        embed.set_image(url=chosen_image)
+        embed.set_footer(text=f"Requested by: {ctx.author.name}")
 
-        bio = BytesIO(await http.get("https://i.alexflipnote.dev/500ce4.gif", res_method="read"))
-        await ctx.send(file=discord.File(bio, filename="noticeme.gif"))
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def nigga(self, ctx):
@@ -301,30 +310,61 @@ class Fun_Commands(commands.Cog):
         await ctx.send(f"https://www.youtube.com/watch?v=fNFzfwLM72c&ab_channel=BeeGeesVEVO")
 
     @commands.command()
+    @commands.check(permissions.is_owner)
+    async def juan(self, ctx, user_id: int):
+        """ JUAN FRATE """
+        user = self.bot.get_user(user_id)
+        if not permissions.can_handle(ctx, "attach_files"):
+            return await ctx.send("Nu pot trimite poze aici bagamias pulicica")
+
+        bio = BytesIO(await http.get("https://i.redd.it/jacj1y21iuj51.jpg", res_method="read"))
+        await user.send(file=discord.File(bio, filename="juan.jpg"))
+        await ctx.send(f"✉️ L-am trimis pe Juan acasa la id-ul asta **{user_id}**")
+
+
+    @commands.command()
+    @commands.check(permissions.is_owner)
+    async def gilbert(self, ctx, user_id: int):
+        """ GILBERT FRATE """
+        user = self.bot.get_user(user_id)
+        if not permissions.can_handle(ctx, "attach_files"):
+            return await ctx.send("Nu pot trimite poze aici bagamias pulicica")
+
+        bio = BytesIO(await http.get("https://i.imgur.com/9x18D5m.png", res_method="read"))
+        await user.send(file=discord.File(bio, filename="gilbert.png"))
+        await ctx.send(f"✉️ L-am trimis pe Gilbert acasa la id-ul asta **{user_id}**")
+
+    @commands.command()
     async def hug(self, ctx, user: discord.Member = None):
         """ Imbratisare. """
         if user is None:
             user = ctx.author
-
+        chosen_image = random.choice(lists.pozehug)
         if not permissions.can_handle(ctx, "attach_files"):
             return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
         
         await ctx.send(f"{ctx.message.author.mention} l-a imbratisat pe {user.mention}")
-        bio = BytesIO(await http.get("https://media1.tenor.com/images/7e30687977c5db417e8424979c0dfa99/tenor.gif?itemid=10522729", res_method="read"))
-        await ctx.send(file=discord.File(bio, filename="tenor.gif"))
+        embed = discord.Embed(color=0xff69b4, timestamp=datetime.datetime.utcnow())
+        embed.set_image(url=chosen_image)
+        embed.set_footer(text=f"Requested by: {ctx.author.name}")
+
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def slap(self, ctx, user: discord.Member = None):
-        """ Imbratisare. """
+        """ Fute o palma. """
         if user is None:
             user = ctx.author
-
+        chosen_image = random.choice(lists.lovitura)
         if not permissions.can_handle(ctx, "attach_files"):
             return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
         
-        await ctx.send(f"{ctx.message.author.mention} i-a futut o palma lu {user.mention}")
-        bio = BytesIO(await http.get("https://media1.tenor.com/images/528ff731635b64037fab0ba6b76d8830/tenor.gif?itemid=17078255", res_method="read"))
-        await ctx.send(file=discord.File(bio, filename="tenor.gif"))
+        await ctx.send(f"{ctx.message.author.mention} i-a futut una lu {user.mention}")
+        embed = discord.Embed(color=0xff69b4, timestamp=datetime.datetime.utcnow())
+        embed.set_image(url=chosen_image)
+        embed.set_footer(text=f"Requested by: {ctx.author.name}")
+
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def ham(self, ctx):
