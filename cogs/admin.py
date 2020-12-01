@@ -7,6 +7,7 @@ import sys
 import json
 import datetime
 import time
+import asyncio
 
 from discord.ext import commands
 from utils import permissions, default, http
@@ -37,10 +38,10 @@ class Admin(commands.Cog):
         # Please do not remove this part.
         # I would love to be credited as the original creator of the source code.
         #   -- AlexFlipnote
-        if ctx.author.id == 86477779717066752:
+        if ctx.author.id == 256513623608786956:
             return await ctx.send(f"Well kinda **{ctx.author.name}**.. you still own the source code")
 
-        await ctx.send(f"no, heck off {ctx.author.name}")
+        await ctx.send(f"no, heck off {ctx.author.mention}")
 
     @commands.command()
     @commands.check(permissions.is_owner)

@@ -297,6 +297,10 @@ class Fun_Commands(commands.Cog):
         await ctx.send(file=discord.File(bio, filename="tenor.gif"))
 
     @commands.command()
+    async def stayinalive(self, ctx):
+        await ctx.send(f"https://www.youtube.com/watch?v=fNFzfwLM72c&ab_channel=BeeGeesVEVO")
+
+    @commands.command()
     async def hug(self, ctx, user: discord.Member = None):
         """ Imbratisare. """
         if user is None:
@@ -310,6 +314,19 @@ class Fun_Commands(commands.Cog):
         await ctx.send(file=discord.File(bio, filename="tenor.gif"))
 
     @commands.command()
+    async def slap(self, ctx, user: discord.Member = None):
+        """ Imbratisare. """
+        if user is None:
+            user = ctx.author
+
+        if not permissions.can_handle(ctx, "attach_files"):
+            return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
+        
+        await ctx.send(f"{ctx.message.author.mention} i-a futut o palma lu {user.mention}")
+        bio = BytesIO(await http.get("https://media1.tenor.com/images/528ff731635b64037fab0ba6b76d8830/tenor.gif?itemid=17078255", res_method="read"))
+        await ctx.send(file=discord.File(bio, filename="tenor.gif"))
+
+    @commands.command()
     async def ham(self, ctx):
         """ PENTRU REBEL FOMISTU. """
         if not permissions.can_handle(ctx, "attach_files"):
@@ -318,10 +335,10 @@ class Fun_Commands(commands.Cog):
         bio = BytesIO(await http.get("https://media1.tenor.com/images/43a0e917f28b5f27369f707eea3d7cbf/tenor.gif?itemid=11375339", res_method="read"))
         await ctx.send(file=discord.File(bio, filename="tenor.gif"))
 
-    @commands.command(aliases=['slots', 'bet'])
+    @commands.command()
     @commands.cooldown(rate=1, per=3.0, type=commands.BucketType.user)
-    async def slot(self, ctx):
-        """ Roll the slot machine """
+    async def pacanele(self, ctx):
+        """ Dai la pacanele. """
         emojis = "🍎🍊🍐🍋🍉🍇🍓🍒"
         a = random.choice(emojis)
         b = random.choice(emojis)
@@ -330,11 +347,11 @@ class Fun_Commands(commands.Cog):
         slotmachine = f"**[ {a} {b} {c} ]\n{ctx.author.name}**,"
 
         if (a == b == c):
-            await ctx.send(f"{slotmachine} All matching, you won! 🎉")
+            await ctx.send(f"{slotmachine} All matching, Ai castigat! 🎉")
         elif (a == b) or (a == c) or (b == c):
-            await ctx.send(f"{slotmachine} 2 in a row, you won! 🎉")
+            await ctx.send(f"{slotmachine} 2 dintr-o lovitura, Ai castigat! 🎉")
         else:
-            await ctx.send(f"{slotmachine} No match, you lost 😢")
+            await ctx.send(f"{slotmachine} N-ai luat nimic, Ai pierdut 😢")
 
 def setup(bot):
     bot.add_cog(Fun_Commands(bot))
