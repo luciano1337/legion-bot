@@ -56,3 +56,10 @@ lick = [
 love = [
   'https://media1.tenor.com/images/cf20ebeadcadcd54e6778dac16357644/tenor.gif?itemid=10805514'
 ]
+pozegift = [
+  'https://i.imgur.com/xnHDSIb.jpg',
+  'https://i.imgur.com/uTrZDlC.jpg'
+]
+glumemafia = [
+  'bag pula in mata'
+]
