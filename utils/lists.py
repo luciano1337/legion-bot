@@ -46,3 +46,7 @@ pozehentai = [
   'https://i.alexflipnote.dev/500ce4.gif',
 
 ]
+pozekiss = [
+  'https://media1.tenor.com/images/ef4a0bcb6e42189dc12ee55e0d479c54/tenor.gif?itemid=12143127',
+  'https://media1.tenor.com/images/f102a57842e7325873dd980327d39b39/tenor.gif?itemid=12392648'
+]
