@@ -249,17 +249,17 @@ class Fun_Commands(commands.Cog):
         await ctx.author.send(f"🎁 **Ia ma parola sarakule:**\n{secrets.token_urlsafe(nbytes)}")
 
     @commands.command()
-    async def beer(self, ctx, user: discord.Member = None, *, reason: commands.clean_content = ""):
-        """ Give someone a beer! 🍻 """
+    async def bere(self, ctx, user: discord.Member = None, *, reason: commands.clean_content = ""):
+        """ Cinsteste cu o bere sarakule! 🍻 """
         if not user or user.id == ctx.author.id:
             return await ctx.send(f"**{ctx.author.name}**: paaaarty!🎉🍺")
         if user.id == self.bot.user.id:
-            return await ctx.send("*drinks beer with you* 🍻")
+            return await ctx.send("*bea o bere cu mine* 🍻")
         if user.bot:
-            return await ctx.send(f"I would love to give beer to the bot **{ctx.author.name}**, but I don't think it will respond to you :/")
+            return await ctx.send(f"Mi-ar placea sa ii dau o bere botului **{ctx.author.name}**, dar ma gandesc ca nu poate accepta :/")
 
-        beer_offer = f"**{user.name}**, you got a 🍺 offer from **{ctx.author.name}**"
-        beer_offer = beer_offer + f"\n\n**Reason:** {reason}" if reason else beer_offer
+        beer_offer = f"**{user.name}**, ai o primit o oferta de 🍺 de la **{ctx.author.name}**"
+        beer_offer = beer_offer + f"\n\n**Motiv:** {reason}" if reason else beer_offer
         msg = await ctx.send(beer_offer)
 
         def reaction_check(m):
@@ -270,15 +270,53 @@ class Fun_Commands(commands.Cog):
         try:
             await msg.add_reaction("🍻")
             await self.bot.wait_for('raw_reaction_add', timeout=30.0, check=reaction_check)
-            await msg.edit(content=f"**{user.name}** and **{ctx.author.name}** are enjoying a lovely beer together 🍻")
+            await msg.edit(content=f"**{user.name}** si **{ctx.author.name}** savureaza o bere blonda impreuna. 🍻")
         except asyncio.TimeoutError:
             await msg.delete()
-            await ctx.send(f"well, doesn't seem like **{user.name}** wanted a beer with you **{ctx.author.name}** ;-;")
+            await ctx.send(f"well, **{ctx.author.mention}** se pare ca **{user.mention}** nu vrea sa bea o bere cu tine , al drq virgin. ;-;")
         except discord.Forbidden:
             # Yeah so, bot doesn't have reaction permission, drop the "offer" word
-            beer_offer = f"**{user.name}**, you got a 🍺 from **{ctx.author.name}**"
-            beer_offer = beer_offer + f"\n\n**Reason:** {reason}" if reason else beer_offer
+            beer_offer = f"**{user.name}**, ai o primit o oferta de 🍺 de la **{ctx.author.name}**"
+            beer_offer = beer_offer + f"\n\n**Motiv:** {reason}" if reason else beer_offe
             await msg.edit(content=beer_offer)
+
+    @commands.command()
+    async def pupic2(self, ctx, user: discord.Member = None, *, reason: commands.clean_content = ""):
+        """ Dai cuiva un pupic! 😘 """
+        chosen_image = random.choice(lists.pozekiss)
+        if not user or user.id == ctx.author.id:
+            return await ctx.send(f"**{ctx.author.mention}**: 😘❤️")
+        if user.id == self.bot.user.id:
+            return await ctx.send("*vrea un pupic de la tine* 😘")
+        if user.bot:
+            return await ctx.send(f"Mi-ar placea sa ii dau botului un pupic **{ctx.author.mention}**, dar nu o sa imi raspunda :/")
+
+        kiss_offer = f"**{ctx.author.mention}**, ai primit un 😘 de la **{user.mention}**"
+        kiss_offer = kiss_offer + f"\n\n**Motiv:** {reason}" if reason else kiss_offer
+        msg = await ctx.send(kiss_offer)
+
+        def reaction_check(m):
+            if m.message_id == msg.id and m.user_id == user.id and str(m.emoji) == "😘":
+                return True
+            return False
+
+        try:
+            await msg.add_reaction("😘")
+            await self.bot.wait_for('raw_reaction_add', timeout=30.0, check=reaction_check)
+            await msg.edit(content=f"**{ctx.author.mention}** si **{user.mention}** se iubesc 🥰")
+            embed = discord.Embed(color=0xff69b4, timestamp=datetime.datetime.utcnow())
+            embed.set_image(url=chosen_image)
+            embed.set_footer(text=f"Requested by: {ctx.author.name}")
+
+            await ctx.send(embed=embed)
+        except asyncio.TimeoutError:
+            await msg.delete()
+            await ctx.send(f"well, **{ctx.author.mention}** se pare ca **{user.mention}** nu vrea un pupic de la tine 😢")
+        except discord.Forbidden:
+            # Yeah so, bot doesn't have reaction permission, drop the "offer" word
+            kiss_offer = f"**{ctx.author.mention}**, ai primit un 😘 de la **{user.mention}**"
+            kiss_offer = kiss_offer + f"\n\n**Motiv:** {reason}" if reason else kiss_offer
+            await msg.edit(content=kiss_offer)
 
     @commands.command(aliases=['noticemesenpai'])
     async def noticeme(self, ctx, user: discord.Member = None):
@@ -349,6 +387,22 @@ class Fun_Commands(commands.Cog):
         embed.set_footer(text=f"Requested by: {ctx.author.name}")
 
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def kiss(self, ctx, user: discord.Member = None):
+        """ Un pupic uwu. """
+        if user is None:
+            user = ctx.author
+        chosen_image = random.choice(lists.pozehug)
+        if not permissions.can_handle(ctx, "attach_files"):
+            return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
+        
+        await ctx.send(f"{ctx.message.author.mention} i-a dat un pupic lu {user.mention}")
+        embed = discord.Embed(color=0xff69b4, timestamp=datetime.datetime.utcnow())
+        embed.set_image(url=chosen_image)
+        embed.set_footer(text=f"Requested by: {ctx.author.name}")
+
+        await ctx.send(embed=embed)        
 
     @commands.command()
     async def slap(self, ctx, user: discord.Member = None):
