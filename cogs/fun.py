@@ -281,7 +281,7 @@ class Fun_Commands(commands.Cog):
             await msg.edit(content=beer_offer)
 
     @commands.command()
-    async def pupic2(self, ctx, user: discord.Member = None, *, reason: commands.clean_content = ""):
+    async def pupic(self, ctx, user: discord.Member = None, *, reason: commands.clean_content = ""):
         """ Dai cuiva un pupic! 😘 """
         chosen_image = random.choice(lists.pozekiss)
         if not user or user.id == ctx.author.id:
