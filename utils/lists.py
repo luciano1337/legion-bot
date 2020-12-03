@@ -69,7 +69,8 @@ love = [
 ]
 pozegift = [
   'https://i.imgur.com/xnHDSIb.jpg',
-  'https://i.imgur.com/uTrZDlC.jpg'
+  'https://i.imgur.com/uTrZDlC.jpg',
+  'https://i.imgur.com/fMgEDlZ.jpg'
 ]
 glumemafia = [
   'bagameas pulan mata pleci la scoala cu 10lei an buzunar 5lei de drum 5 lei detigari trantimias pulan mata si ai figuri k ai jordani fake din targ si tricou armani luat de la turci k daca iti deschid sifonieru joak turci cu chinezi barbut',
@@ -91,7 +92,7 @@ glumemafia = [
 'Eu, Lorin Fortuna combatant ezoteric complex și corect privind din punct de vedere ezoteric prin rangul ezoteric precum și prin distincţiile ezoterice care mi-au fost conferite de către conducători supremi abilitaţi, blestem ezoteric la nivelul maxim posibil la care dau dreptul rangul și distinctiile ezoterice care mi-au conferite menţionate anterior. Blestem fără sfârşit temporar în mod direct împotriva fiinţei colective superioare de tip civilizaţie virtuală numită: civilizaţia virtuală arahnidica tarantulara, androgina, neagră, emoţional agresională civilizațională condusă la nivel de conducător suprem de către fiinţa superioară androgină alcătuită din: ființa individuală superioară de gen masculin numită Satanos și fiinţa individuală superioară de gen feminin numită Geea, pentru răul existenţial comis împotriva grupării de civilizaţie virtuale de tip gorilian individual neagresională civilizațional și autentic băștinașe în cadrul lumilor planetare ale planetei al cărei lume planetare medie sunt integrate  existenţial cu precizarea că, răul existenţial pentru care blestem civilizaţia virtuală pe care am numit-o anterior ultim ca civilizaţie agresională civilizațional a fost comis în perioada temporală specifică calendarului planetar cuprins între data de început în care s-a dat în funcțiune oficial prima bază civilizațională planetară în cadrul zonei existenţiale a planetei a cărei lume planetară medie sunt integrate existențial aferentă și mă refer la zona existențial în cauză și la concret la baza existențială civilizațională virtuală planetară în cauza deci aferentă civilizației virtuale pe care o blestem și până în prezent.',
 'fututi morti mati te dai mare smeker faci paneluri de samp da kand tiam zis de error_log ziceai sefu scuzama nam facut eu asa cv fututi morti mati olteanuadv',
 'te dai mare futacios si mare fuckboy da singura fata careti zice so futi e reclama depe xnxx cu maria carei in apropierea ta',
-'te dai bodybuilder ca tu faci sala sa pui pe tine da sami bag singur pulan cur ca dacati pui mana in sold zici zici ca esti cupa uefa esti nebun',
+'te dai bodybuilder ca tu faci sala sa pui pe tine da sami bag singur pulan cur ca dacati pui mana in sold zici ca esti cupa uefa esti nebun',
 'cum sa te desparti de gagicata gen la inima mai ars dar tot nam sa te las',
 'te dai mare smecher prin cluburi da cand era pe tv shaolin soudaun iti puneai manusa lu tac tu de sudura pe cap si ziceai ca e pumnu lu tedigong',
 'Te dai mare ITst haker pula mea da nai mai trimis ss la nimeni de când ți ai spart ecranu la tlf că ți era rușine să nu se vadă damiaș drumu n pipota matii',
@@ -106,6 +107,19 @@ glumemafia = [
 'sa vedeti cioroilor, azi dimineata stateam linistit in pat si il gadilam pe fratimio in talpa, la care mama "macar asteapta pana se naste", gen cplm nu pot sa ma joc cu el',
 'pray pt toti cioroi care lea fost inima ranita de puicute stei strong barbati mei',
 'Ho nebunule ca groapa marianelor si mata sunt cele mai adanci puncte de pe planeta',
+'te dai mare diva figuri de buftea cu iph 6 da daca conectez castile la buricu tau se aude balada foamei bass boosted',
+'cum pulamea sa nadormi vere gen noapte buna somn usor sapte purici pun picior',
+'comentezi de bataie dar te sponsorizeaza croco cu corpu ala fmm de stick',
+'buna ziua muie la bozgori si o seara cat mai linistita sa aveti oameni buni',
+'Baganeam pula în profii de matematică o vezi pe Ionela ca are curu mare și îi pui 8 fututen gura si mie 5 luates in pula cu chelia ta',
+'MAMA TA E ASA DE GRASA INCAT THANOS A BATUT DE 2 ORI DIN DEGETE SA O STEARGA DE PE PLANETA',
+'esti frumoasa andreea da fara machiaj te striga lumea andrei pe strada',
+'te dai mare smecher ca ai bani tu da dormi cu fratii tai pe rand in soba ca e frig afara pisa m as pe tn de sarantoc',
+'vezi sa nu cazi in pumn baiatul meu ca poate te omori',
+'Sa te fut in gura mort ca viu dai din picioare',
+'Coaie te lauzi ca esti orasean ai vazut tranvaiu ai zis ca a fatat trenu copilu matii',
+'ESTI ATAT DE URAT INCAT ATUNCI CAND PLANGI LACRIMILE  SE INTALNESC LA CEAFA SA ITI OCOLEASCA FATA',
+'Te dai mare culturist gen coaie ce spate am rup da sati scuipe unchiu Fester in ciorba mati de nu esti mai cocosat decat Rammus din lol in morti tai de ghertoi mars inapoi in papusoi',
 'ma-ta aia curva cand imi vede pula zice "My precious" ca Gollum futu-ti rasa si neamu ma-tii de mamaligar',
 'daca esti profesor si in timpul unei lucrari muti colegu ala mai bun din banca astfel incat ala mai prost sa nu poata copia meriti sa se prabuseasca pe tn si pe mata toate pulele pe care le a supt fieta sasi ia jordani la 3 milioane de pe olx',
 'cand te am dus prima oara la pull&bear m ai intrebat unde i ursu',
