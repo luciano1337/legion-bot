@@ -252,7 +252,7 @@ class Fun_Commands(commands.Cog):
     async def bere(self, ctx, user: discord.Member = None, *, reason: commands.clean_content = ""):
         """ Cinsteste cu o bere sarakule! 🍻 """
         if not user or user.id == ctx.author.id:
-            return await ctx.send(f"**{ctx.author.name}**: paaaarty!🎉🍺")
+            return await ctx.send(f"**{ctx.author.name}**: bea 🍺 singur 😢 ")
         if user.id == self.bot.user.id:
             return await ctx.send("*bea o bere cu mine* 🍻")
         if user.bot:
@@ -285,7 +285,7 @@ class Fun_Commands(commands.Cog):
         """ Dai cuiva un pupic uwu! 😘 """
         chosen_image = random.choice(lists.pozekiss)
         if not user or user.id == ctx.author.id:
-            return await ctx.send(f"**{ctx.author.mention}**: 😘❤️")
+            return await ctx.send(f"**{ctx.author.mention}**: se pupa singur pentru ca nimeni nu il pupa 😢")
         if user.id == self.bot.user.id:
             return await ctx.send("*vrea un pupic de la tine* 😘")
         if user.bot:
@@ -323,7 +323,7 @@ class Fun_Commands(commands.Cog):
         """ Da o imbreatisare cuiva! 🤗 """
         chosen_image = random.choice(lists.pozehug)
         if not user or user.id == ctx.author.id:
-            return await ctx.send(f"**{ctx.author.mention}**: 🤗❤️")
+            return await ctx.send(f"**{ctx.author.mention}**: se imbratiseaza singur 😢")
         if user.id == self.bot.user.id:
             return await ctx.send("*vrea o imbratisare de la tine* ❤️")
         if user.bot:
@@ -477,7 +477,7 @@ class Fun_Commands(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def glume(self, ctx, user: discord.Member = None):
+    async def duma(self, ctx, user: discord.Member = None):
         """ NANE GLUME """
         if user is None:
             user = ctx.author
