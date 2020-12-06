@@ -160,75 +160,6 @@ class Fun_Commands(commands.Cog):
         await ctx.send(f"**{ctx.author.name}** has paid their respect {reason}{random.choice(hearts)}")
 
     @commands.command()
-    async def supreme(self, ctx, *, text: commands.clean_content(fix_channel_mentions=True)):
-        """ Make a fake Supreme logo
-
-        Arguments:
-            --dark | Make the background to dark colour
-            --light | Make background to light and text to dark colour
-        """
-        parser = argparser.Arguments()
-        parser.add_argument('input', nargs="+", default=None)
-        parser.add_argument('-d', '--dark', action='store_true')
-        parser.add_argument('-l', '--light', action='store_true')
-
-        args, valid_check = parser.parse_args(text)
-        if not valid_check:
-            return await ctx.send(args)
-
-        inputText = urllib.parse.quote(' '.join(args.input))
-        if len(inputText) > 500:
-            return await ctx.send(f"**{ctx.author.name}**, the Supreme API is limited to 500 characters, sorry.")
-
-        darkorlight = ""
-        if args.dark:
-            darkorlight = "dark=true"
-        if args.light:
-            darkorlight = "light=true"
-        if args.dark and args.light:
-            return await ctx.send(f"**{ctx.author.name}**, you can't define both --dark and --light, sorry..")
-
-        await self.api_img_creator(ctx, f"https://api.alexflipnote.dev/supreme?text={inputText}&{darkorlight}", "supreme.png", token=self.alex_api_token)
-
-    @commands.command(aliases=['color'])
-    @commands.cooldown(rate=1, per=3.0, type=commands.BucketType.user)
-    async def colour(self, ctx, colour: str):
-        """ View the colour HEX details """
-        async with ctx.channel.typing():
-            if not permissions.can_handle(ctx, "embed_links"):
-                return await ctx.send("I can't embed in this channel ;-;")
-
-            if colour == "random":
-                colour = "%06x" % random.randint(0, 0xFFFFFF)
-
-            if colour[:1] == "#":
-                colour = colour[1:]
-
-            if not re.search(r'^(?:[0-9a-fA-F]{3}){1,2}$', colour):
-                return await ctx.send("You're only allowed to enter HEX (0-9 & A-F)")
-
-            try:
-                r = await http.get(
-                    f"https://api.alexflipnote.dev/colour/{colour}", res_method="json",
-                    no_cache=True, headers={"Authorization": self.alex_api_token}
-                )
-            except aiohttp.ClientConnectorError:
-                return await ctx.send("The API seems to be down...")
-            except aiohttp.ContentTypeError:
-                return await ctx.send("The API returned an error or didn't return JSON...")
-
-            embed = discord.Embed(colour=r["int"])
-            embed.set_thumbnail(url=r["image"])
-            embed.set_image(url=r["image_gradient"])
-
-            embed.add_field(name="HEX", value=r['hex'], inline=True)
-            embed.add_field(name="RGB", value=r['rgb'], inline=True)
-            embed.add_field(name="Int", value=r['int'], inline=True)
-            embed.add_field(name="Brightness", value=r['brightness'], inline=True)
-
-            await ctx.send(embed=embed, content=f"{ctx.invoked_with.title()} name: **{r['name']}**")
-
-    @commands.command()
     async def invers(self, ctx, *, text: str):
         """ Scriu si invers mai nou
         """
@@ -396,6 +327,43 @@ class Fun_Commands(commands.Cog):
         bio = BytesIO(await http.get("https://i.redd.it/jacj1y21iuj51.jpg", res_method="read"))
         await user.send(file=discord.File(bio, filename="juan.jpg"))
         await ctx.send(f"✉️ L-am trimis pe Juan acasa la id-ul asta **{user_id}**")
+
+    @commands.command()
+    @commands.check(permissions.is_owner)
+    async def miguel(self, ctx, user_id: int):
+        """ MIGUEL FRATE """
+        user = self.bot.get_user(user_id)
+        if not permissions.can_handle(ctx, "attach_files"):
+            return await ctx.send("Nu pot trimite poze aici bagamias pulicica")
+
+        bio = BytesIO(await http.get("https://i.kym-cdn.com/entries/icons/medium/000/034/192/widescreen_miguel.png", res_method="read"))
+        await user.send(file=discord.File(bio, filename="miguel.jpg"))
+        await ctx.send(f"✉️ L-am trimis pe Miguel acasa la id-ul asta **{user_id}**")
+
+    @commands.command()
+    @commands.check(permissions.is_owner)
+    async def osteca(self, ctx, user_id: int):
+        """ AZTECA FRATE """
+        user = self.bot.get_user(user_id)
+        if not permissions.can_handle(ctx, "attach_files"):
+            return await ctx.send("Nu pot trimite poze aici bagamias pulicica")
+
+        bio = BytesIO(await http.get("https://api.kissfm.ro/resized/hotonkiss/photo/azteca.png", res_method="read"))
+        await user.send(file=discord.File(bio, filename="azteca.jpg"))
+        await ctx.send(f"✉️ L-am trimis pe azteca acasa la id-ul asta **{user_id}**")
+
+
+    @commands.command()
+    @commands.check(permissions.is_owner)
+    async def gustav(self, ctx, user_id: int):
+        """ GUSTAV FRATE """
+        user = self.bot.get_user(user_id)
+        if not permissions.can_handle(ctx, "attach_files"):
+            return await ctx.send("Nu pot trimite poze aici bagamias pulicica")
+
+        bio = BytesIO(await http.get("https://memegenerator.net/img/instances/43459516.jpg", res_method="read"))
+        await user.send(file=discord.File(bio, filename="gustav.jpg"))
+        await ctx.send(f"✉️ L-am trimis pe Gustav acasa la id-ul asta **{user_id}**")
 
 
     @commands.command()

@@ -30,10 +30,10 @@ class Admin(commands.Cog):
             json.dump(data, jsonFile, indent=2)
 
     @commands.command()
-    async def amiadmin(self, ctx):
+    async def admin(self, ctx):
         """ Are you an admin? """
         if ctx.author.id in self.config["owners"]:
-            return await ctx.send(f"Yes **{ctx.author.name}** you are an admin! ✅")
+            return await ctx.send(f"Da **{ctx.author.name}** esti admin! ✅")
 
         # Please do not remove this part.
         # I would love to be credited as the original creator of the source code.
@@ -46,12 +46,12 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.check(permissions.is_owner)
     async def load(self, ctx, name: str):
-        """ Loads an extension. """
+        """ Reincarca o extensie. """
         try:
             self.bot.load_extension(f"cogs.{name}")
         except Exception as e:
             return await ctx.send(default.traceback_maker(e))
-        await ctx.send(f"Loaded extension **{name}.py**")
+        await ctx.send(f"Am reincarcat extensia **{name}.py** ✅")
 
     @commands.command(pass_context = True)
     @commands.check(permissions.is_owner)
@@ -61,27 +61,27 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.check(permissions.is_owner)
     async def unload(self, ctx, name: str):
-        """ Unloads an extension. """
+        """ Opreste o extensie """
         try:
             self.bot.unload_extension(f"cogs.{name}")
         except Exception as e:
             return await ctx.send(default.traceback_maker(e))
-        await ctx.send(f"Unloaded extension **{name}.py**")
+        await ctx.send(f"Am oprit extensia **{name}.py** ✅")
 
     @commands.command()
     @commands.check(permissions.is_owner)
     async def reload(self, ctx, name: str):
-        """ Reloads an extension. """
+        """ Reincarca o extensie. """
         try:
             self.bot.reload_extension(f"cogs.{name}")
         except Exception as e:
             return await ctx.send(default.traceback_maker(e))
-        await ctx.send(f"Reloaded extension **{name}.py**")
+        await ctx.send(f"Am reincarcat extensia **{name}.py** ✅")
 
     @commands.command()
     @commands.check(permissions.is_owner)
     async def reloadall(self, ctx):
-        """ Reloads all extensions. """
+        """ Reincarca toate extensiile. """
         error_collection = []
         for file in os.listdir("cogs"):
             if file.endswith(".py"):
@@ -96,48 +96,48 @@ class Admin(commands.Cog):
         if error_collection:
             output = "\n".join([f"**{g[0]}** ```diff\n- {g[1]}```" for g in error_collection])
             return await ctx.send(
-                f"Attempted to reload all extensions, was able to reload, "
-                f"however the following failed...\n\n{output}"
+                f"Am vrut sa reincarc toate extensiile, "
+                f"Urmatoarea extensie nu a putut fi incarcata...\n\n{output}"
             )
 
-        await ctx.send("Successfully reloaded all extensions")
+        await ctx.send("Am reincarcat toate extensiile cu succes! ✅")
 
     @commands.command()
     @commands.check(permissions.is_owner)
     async def reloadutils(self, ctx, name: str):
-        """ Reloads a utils module. """
+        """ Reincarca un modul """
         name_maker = f"utils/{name}.py"
         try:
             module_name = importlib.import_module(f"utils.{name}")
             importlib.reload(module_name)
         except ModuleNotFoundError:
-            return await ctx.send(f"Couldn't find module named **{name_maker}**")
+            return await ctx.send(f"Nu am putut gasi un modul numit **{name_maker}**")
         except Exception as e:
             error = default.traceback_maker(e)
-            return await ctx.send(f"Module **{name_maker}** returned error and was not reloaded...\n{error}")
-        await ctx.send(f"Reloaded module **{name_maker}**")
+            return await ctx.send(f"Modulul **{name_maker}** a returnat o eroare si nu a putut fi reincarcat...\n{error}")
+        await ctx.send(f"Am reincarcat modulul **{name_maker}** ✅")
 
     @commands.command()
     @commands.check(permissions.is_owner)
     async def reboot(self, ctx):
-        """ Reboot the bot """
-        await ctx.send('Rebooting now...')
+        """ Restarteaza bot-ul. """
+        await ctx.send('Ma restartez...')
         time.sleep(1)
         sys.exit(0)
 
     @commands.command()
     @commands.check(permissions.is_owner)
     async def dm(self, ctx, user_id: int, *, message: str):
-        """ DM the user of your choice """
+        """ Dai DM unui user """
         user = self.bot.get_user(user_id)
         if not user:
             return await ctx.send(f"Could not find any UserID matching **{user_id}**")
 
         try:
             await user.send(message)
-            await ctx.send(f"✉️ Sent a DM to **{user_id}**")
+            await ctx.send(f"✉️ Am trimis un DM catre **{user_id}**")
         except discord.Forbidden:
-            await ctx.send("This user might be having DMs blocked or it's a bot account...")
+            await ctx.send("Nu am putut trimite DM-ul")
 
     @commands.group()
     @commands.check(permissions.is_owner)
@@ -163,7 +163,7 @@ class Admin(commands.Cog):
                 status=status_type.get(status, discord.Status.online)
             )
             self.change_config_value("playing", playing)
-            await ctx.send(f"Successfully changed playing status to **{playing}**")
+            await ctx.send(f"Am schimbat statusul cu **{playing}**")
         except discord.InvalidArgument as err:
             await ctx.send(err)
         except Exception as e:
@@ -175,7 +175,7 @@ class Admin(commands.Cog):
         """ Change username. """
         try:
             await self.bot.user.edit(username=name)
-            await ctx.send(f"Successfully changed username to **{name}**")
+            await ctx.send(f"Am schimbat username-ul cu succes **{name}**")
         except discord.HTTPException as err:
             await ctx.send(err)
 
@@ -186,7 +186,7 @@ class Admin(commands.Cog):
         try:
             await ctx.guild.me.edit(nick=name)
             if name:
-                await ctx.send(f"Successfully changed nickname to **{name}**")
+                await ctx.send(f"Am schimbat username-ul cu succes **{name}**")
             else:
                 await ctx.send("Successfully removed nickname")
         except Exception as err:
