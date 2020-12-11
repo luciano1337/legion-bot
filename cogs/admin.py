@@ -8,6 +8,8 @@ import json
 import datetime
 import time
 import asyncio
+import inspect
+import ast
 
 from discord.ext import commands
 from utils import permissions, default, http
@@ -77,6 +79,16 @@ class Admin(commands.Cog):
         except Exception as e:
             return await ctx.send(default.traceback_maker(e))
         await ctx.send(f"Am reincarcat extensia **{name}.py** ✅")
+
+    @commands.command(pass_context=True)
+    @commands.check(permissions.is_owner)
+    async def _eval(self, ctx, *, command: str):
+        """ Eval (comanda doar pentru developeri) """
+        res = eval(command)
+        if inspect.isawaitable(res):
+            await ctx.send(await res)
+        else:
+            await ctx.send(res)
 
     @commands.command()
     @commands.check(permissions.is_owner)
