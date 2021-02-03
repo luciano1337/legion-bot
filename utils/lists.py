@@ -70,7 +70,22 @@ love = [
 pozegift = [
   'https://i.imgur.com/xnHDSIb.jpg',
   'https://i.imgur.com/uTrZDlC.jpg',
-  'https://i.imgur.com/fMgEDlZ.jpg'
+  'https://i.imgur.com/fMgEDlZ.jpg',
+  'https://i.imgur.com/HZVKaYK.jpg',
+  'https://i.imgur.com/HvQnLpj.jpg',
+  'https://i.imgur.com/qRLPalh.jpg',
+  'https://i.imgur.com/fQaCCNF.jpg',
+  'https://i.imgur.com/BM8CoqI.jpg',
+  'https://i.imgur.com/bSTgzZj.jpg',
+  'https://i.imgur.com/bZOpa6H.jpg',
+  'https://i.imgur.com/xjHCbLq.jpg',
+  'https://i.imgur.com/pFn1b1H.jpg',
+  'https://i.imgur.com/wxA6Yhm.jpg',
+  'https://i.imgur.com/jw3ohim.jpg',
+  'https://i.imgur.com/cZOCcvO.jpg',
+  'https://i.imgur.com/dpDKiNh.jpg',
+  'https://i.imgur.com/MSmQjc2.jpg',
+  'https://i.imgur.com/8LXrQmy.jpg',
 ]
 glumemafia = [
   'bagameas pulan mata pleci la scoala cu 10lei an buzunar 5lei de drum 5 lei detigari trantimias pulan mata si ai figuri k ai jordani fake din targ si tricou armani luat de la turci k daca iti deschid sifonieru joak turci cu chinezi barbut',

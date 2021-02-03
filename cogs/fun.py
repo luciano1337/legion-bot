@@ -3,7 +3,6 @@ import discord
 import urllib
 import secrets
 import asyncio
-import youtube_dl
 import aiohttp
 import re
 import datetime
@@ -19,7 +18,6 @@ class Fun_Commands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = default.config()
-        self.alex_api_token = self.config["alexflipnote_api"]
 
     @commands.command()
     async def adunare(self, ctx, a: int, b: int):
@@ -126,6 +124,7 @@ class Fun_Commands(commands.Cog):
         if not permissions.can_handle(ctx, "attach_files"):
             return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
         
+        await ctx.send(f"{ctx.message.author.mention} PISICUTA UWU :)")
         embed = discord.Embed(color=0xff69b4, timestamp=datetime.datetime.utcnow())
         embed.set_image(url=chosen_image)
         embed.set_footer(text=f"Requested by: {ctx.author.name}")
@@ -140,6 +139,7 @@ class Fun_Commands(commands.Cog):
         if not permissions.can_handle(ctx, "attach_files"):
             return await ctx.send("Nu pot sa trimit imagini aici bagami-as pula :(.")
         
+        await ctx.send(f"{ctx.message.author.mention} CATELU UWU :)")
         embed = discord.Embed(color=0xff69b4, timestamp=datetime.datetime.utcnow())
         embed.set_image(url=chosen_image)
         embed.set_footer(text=f"Requested by: {ctx.author.name}")
